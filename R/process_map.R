@@ -262,11 +262,11 @@ process_map.eventlog <- function(eventlog,
 			mutate(constraint = if_else(((n - min(n)) / max(n)) < layout$edge_cutoff, FALSE, TRUE)) %>%
 			# at least one output edge per activity should be used in the layout
 			group_by(from_id) %>%
-			mutate(constraint = n == max(n) | constraint) %>%
+			mutate(constraint = n == 0 | constraint) %>%
 			ungroup() %>%
 			# same with input edges
 			group_by(to_id) %>%
-			mutate(constraint = n == max(n) | constraint) %>%
+			mutate(constraint = n == 0 | constraint) %>%
 			ungroup() -> edges
 	} else {
 		edges %>% mutate(constraint = TRUE) -> edges
